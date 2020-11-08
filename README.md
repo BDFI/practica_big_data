@@ -3,7 +3,7 @@ A continaución se docuementa cómo cumplir los siguientes objetivos:
 - [ ] [4 pts] Lograr el funcionamiento de la práctica sin realizar modificaciones.
 - [ ] [1 pto] Ejecución del job de predicción con Spark Submit en vez de IntelliJ.
 - [ ] [1 pto] Dockerizar cada uno de los servicios que componene la arquitectura completa.
-- [ ] [1 pto] Desplegar el escenario completo usando kubernetes.
+- [ ] [2 pto] Desplegar el escenario completo usando kubernetes.
 - [ ] [1 pto] Desplegar el escenario completo en Google Cloud/AWS.
 - [ ] [2 ptos] Cambiar mongodb por Cassandra.
 
