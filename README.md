@@ -20,6 +20,8 @@ Para ello se sigue y documenta cada paso de este proceso, (sabiendo que se desea
 
 Si se desea despelgar la arquitectura completa en GCP se podrían resumir así los pasos:
 
+![Arquitectura](images/Arq.png)
+
 1. Descargar los datos de vuelos pasados 
 => Se ejecuta el script download_data.sh y se guardan los datasets en **cloud storage**
 2. Entrenar el modelo de machine learning 
