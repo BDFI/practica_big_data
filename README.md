@@ -1,3 +1,45 @@
+A continaución se docuementa cómo cumplir los siguientes objetivos:
+
+- [ ] [4 pts] Lograr el funcionamiento de la práctica sin realizar modificaciones.
+- [ ] [1 pto] Ejecución del job de predicción con Spark Submit en vez de IntelliJ.
+- [ ] [1 pto] Dockerizar cada uno de los servicios que componene la arquitectura completa.
+- [ ] [1 pto] Desplegar el escenario completo usando kubernetes.
+- [ ] [1 pto] Desplegar el escenario completo en Google Cloud/AWS.
+- [ ] [2 ptos] Cambiar mongodb por Cassandra.
+
+Para ello se sigue y documenta cada paso de este proceso, (sabiendo que se desea depslegar la arquitectura compelta en gcp)
+
+1. Descargar los datos de vuelos pasados.
+2. Entrenar el modelo de machine learning.
+3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado. 
+4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask.
+5. El servidor web enviará estos datos al job de predicción a través de Kafka.
+6. El job realizará la predicción y la guardará en Mongo.
+7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
+8. En caso afirmativo se muestra la predicción en la interfaz.
+
+Si se desea despelgar la arquitectura completa en GCP se podrían resumir así los pasos:
+
+1. Descargar los datos de vuelos pasados 
+=> Se ejecuta el script download_data.sh y se guardan los datasets en **cloud storage**
+2. Entrenar el modelo de machine learning 
+=> **Cloud Data Proc** se entrena el algoritmo
+3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado 
+=> **Cloud Data Proc** se ejecuta el job  
+4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask 
+=> se han dockerizado los servicios de frontend **jquery** y servidor backend **flask** y se ejecutan en kubernetes
+¿? ¿Qué servicio de kubernetes hay que usar? 
+- GKE: levanta un kubernetes a tiempo completo => 0.10 $/cluster/hour * 24*7(1 semana) + otros costes ~ 20$/semana => * 3 semanas => 60$ => se nos acaban los 50 créditos que tenemos si lo dejamos encendido todo el rato =>  ¿lo apagamos y encendemos todo el rato variando las apis de interconexión? o ¿hacemos un videocon el riesgo de si hay que montar algo hay que volver a configurarlo todo?
+- Cloud run: un k8s serverless => sólo pagamos por lo que usamos => primer 1M de peticiones grátis => podemos dejarlo despelgado y aguantan los créditos hasta que sea el exámen oral.
+5. El servidor web enviará estos datos al job de predicción a través de Kafka.
+=> mismo problema, si tenemos el clúster encedido se nos acaban los créditos => ¿nos bajáis nota si usamos Cloud Pub/Sub?
+6. El job realizará la predicción y la guardará en Mongo.
+¿? ¿Qué servicio de Mongo DB usamos? ¿Desplegamos un mongo en gke? => mismo problema que antes o ¿podemos usar MongoDB Atlas?
+7. La interfaz web está constantemente haciendo polling para comprobar si se ha realizado ya la predicción.
+=> si nos valoráis usar cloud run ¿podemos modificarlo para que atienda asíncronamente cuando le llegue unmesnaje por la cola?
+8. En caso afirmativo se muestra la predicción en la interfaz.
+
+
 # Agile_Data_Code_2
 
 Code for [Agile Data Science 2.0](http://shop.oreilly.com/product/0636920051619.do), O'Reilly 2017. Now available at the [O'Reilly Store](http://shop.oreilly.com/product/0636920051619.do), on [Amazon](https://www.amazon.com/Agile-Data-Science-2-0-Applications/dp/1491960116) (in Paperback and Kindle) and on [O'Reilly Safari](https://www.safaribooksonline.com/library/view/agile-data-science/9781491960103/). Also available anywhere technical books are sold!
