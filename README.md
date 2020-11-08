@@ -26,6 +26,7 @@ Si se desea despelgar la arquitectura completa en GCP se podrían resumir así l
 => Se ejecuta el script download_data.sh y se guardan los datasets en **cloud storage**
 2. Entrenar el modelo de machine learning 
 => **Cloud Data Proc** se entrena el algoritmo
+Se crea un environment de cloud composer:y se ejecuta un dag sobre este
 3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado 
 => **Cloud Data Proc** se ejecuta el job  
 4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask 
