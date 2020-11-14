@@ -7,7 +7,7 @@ El objetivo de este documento es describir cómo orquestrar la ejecución de dis
 - [ ] [1 pto] Desplegar el escenario completo en Google Cloud/AWS.
 - [ ] [2 ptos] Cambiar mongodb por Cassandra.
 
-Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada paso conlleva la ejecución de un cierto script que está relacionado con el despliegue de unos servicios (spark, kafka) en una máquina: a continuación se describe cómo se ejcuta en una máquina cada script del proceso y qué resultado se obtiene. Con ello s
+Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada paso conlleva la ejecución de un cierto script que está relacionado con el despliegue de unos servicios (spark, kafka) en una máquina: a continuación se describe cómo se ejcuta en una máquina cada script del proceso y qué resultado se obtiene. Con ello, se consigue depurar estos scripts con el fin de poder adaptarlos para que se ejecuten con airflow o en gcp.
 
 1. Descargar los datos de vuelos pasados.
 2. Entrenar el modelo de machine learning.
@@ -18,6 +18,29 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 8. En caso afirmativo se muestra la predicción en la interfaz.
 
+```bash
+# 0. Clonar el repo e instalar python3, spark, zookeeper y kafka.
+
+# 0.1. 
+git clone https://github.com/BDFI/practica_big_data.git
+
+# Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://www.youtube.com/watch?v=yihRMOOrYhE]
+wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz
+
+1. Descargar los datos de vuelos pasados.
+
+
+
+2. Entrenar el modelo de machine learning.
+3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado. 
+4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask.
+5. El servidor web enviará estos datos al job de predicción a través de Kafka.
+6. El job realizará la predicción y la guardará en Mongo.
+7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
+8. En caso afirmativo se muestra la predicción en la interfaz.
+
+
+```
 
 
 Si se desea despelgar la arquitectura completa en GCP se podrían resumir así los pasos:
