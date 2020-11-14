@@ -37,8 +37,11 @@ Más óptimo, cloud data proc o dataflow
 - Cloud run: un k8s serverless => sólo pagamos por lo que usamos => primer 1M de peticiones grátis => podemos dejarlo despelgado y aguantan los créditos hasta que sea el exámen oral.
 Se usa los comandos:
 git clone https://github.com/ging/practica_big_data_2019 [carpeta destino]
+
 export PROJECT_HOME=/home/user/Desktop/practica_big_data_2019
+
 cd practica_big_data_2019/resources/web
+
 python3 predict_flask.py
 
 5. El servidor web enviará estos datos al job de predicción a través de Kafka.
