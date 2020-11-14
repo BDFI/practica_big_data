@@ -35,6 +35,12 @@ Más óptimo, cloud data proc o dataflow
 ¿? ¿Qué servicio de kubernetes hay que usar? 
 - GKE: levanta un kubernetes a tiempo completo => 0.10 $/cluster/hour * 24*7(1 semana) + otros costes ~ 20$/semana => * 3 semanas => 60$ => se nos acaban los 50 créditos que tenemos si lo dejamos encendido todo el rato =>  ¿lo apagamos y encendemos todo el rato variando las apis de interconexión? o ¿hacemos un videocon el riesgo de si hay que montar algo hay que volver a configurarlo todo?
 - Cloud run: un k8s serverless => sólo pagamos por lo que usamos => primer 1M de peticiones grátis => podemos dejarlo despelgado y aguantan los créditos hasta que sea el exámen oral.
+Se usa los comandos:
+git clone https://github.com/ging/practica_big_data_2019 [carpeta destino]
+export PROJECT_HOME=/home/user/Desktop/practica_big_data_2019
+cd practica_big_data_2019/resources/web
+python3 predict_flask.py
+
 5. El servidor web enviará estos datos al job de predicción a través de Kafka.
 => mismo problema, si tenemos el clúster encedido se nos acaban los créditos => ¿nos bajáis nota si usamos Cloud Pub/Sub?
 6. El job realizará la predicción y la guardará en Mongo.
