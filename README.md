@@ -1,13 +1,13 @@
-A continaución se docuementa cómo cumplir los siguientes objetivos:
+El objetivo de este documento es describir cómo orquestrar la ejecución de disintos scritps (como pipeline de proceso de datos) con el fin de cumplir los siguientes objetivos:
 
 - [ ] [4 pts] Lograr el funcionamiento de la práctica sin realizar modificaciones.
 - [ ] [1 pto] Ejecución del job de predicción con Spark Submit en vez de IntelliJ.
-- [ ] [1 pto] Dockerizar cada uno de los servicios que componene la arquitectura completa.
+- [ ] [1 pto] Dockerizar cada uno de los servicios que componenen la arquitectura completa.
 - [ ] [2 pto] Desplegar el escenario completo usando kubernetes.
 - [ ] [1 pto] Desplegar el escenario completo en Google Cloud/AWS.
 - [ ] [2 ptos] Cambiar mongodb por Cassandra.
 
-Para ello se sigue y documenta cada paso de este proceso, (sabiendo que se desea depslegar la arquitectura compelta en gcp)
+Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada paso conlleva la ejecución de un cierto script que está relacionado con el despliegue de unos servicios (spark, kafka) en una máquina: a continuación se describe cómo se ejcuta en una máquina cada script del proceso y qué resultado se obtiene. Con ello s
 
 1. Descargar los datos de vuelos pasados.
 2. Entrenar el modelo de machine learning.
@@ -17,6 +17,8 @@ Para ello se sigue y documenta cada paso de este proceso, (sabiendo que se desea
 6. El job realizará la predicción y la guardará en Mongo.
 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 8. En caso afirmativo se muestra la predicción en la interfaz.
+
+
 
 Si se desea despelgar la arquitectura completa en GCP se podrían resumir así los pasos:
 
