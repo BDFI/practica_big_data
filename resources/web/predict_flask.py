@@ -292,7 +292,8 @@ def delays():
   return render_template('delays.html')
 
 # Load our regression model
-from sklearn.externals import joblib
+#from sklearn.externals 
+import joblib
 from os import environ
 
 
