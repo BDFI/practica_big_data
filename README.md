@@ -57,7 +57,10 @@ echo "dataDir=/var/zookeeper" >> zoo.cfg
 echo "clientPort=2181" >> zoo.cfg
 cd ..
 sudo bin/zkServer.sh start
+sudo bin/zkServer.sh stop
 cd ..
+
+# Mongo
 
 # 0.2 Desplegar
 
@@ -67,11 +70,12 @@ cd kafka_2.13-2.6.0
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
 # kafka: en una consola nueva en el directorio de descarga
-
+cd kafka_2.13-2.6.0
 bin/kafka-server-start.sh config/server.properties
 
  # En otra consola se crea un topic
-   
+  cd kafka_2.13-2.6.0 
+  
       bin/kafka-topics.sh \
           --create \
           --zookeeper localhost:2181 \
