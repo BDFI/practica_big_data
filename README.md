@@ -21,6 +21,8 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 ```bash
 # 0. Clonar el repo e instalar python3, spark, zookeeper y kafka.
 
+# 0.1 descargar y comrpobar que funciona
+
 # Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
 sudo apt install default-jdk scala git -y
 java -version; javac -version; scala -version; git --version
@@ -32,18 +34,73 @@ echo "export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.profile
 echo "export PYSPARK_PYTHON=/usr/bin/python3" >> ~/.profile
 source ~/.profile
 
+rm spark-2.4.7-bin-hadoop2.7.tgz
+
 start-master.sh
 
 # Zookeeper 3.6.2
 wget https://apache.brunneis.com/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz && pwd && tar -xvf apache-zookeeper-3.6.2-bin.tar.gz
 
+rm apache-zookeeper-3.6.2-bin.tar.gz
 
-# 
-git clone https://github.com/BDFI/practica_big_data.git
+# kafka 2.3.
+wget https://archive.apache.org/dist/kafka/2.3.0/kafka-2.3.0-src.tgz && pwd && tar -xvf kafka-2.3.0-src.tgz
+wget https://apache.brunneis.com/kafka/2.6.0/kafka_2.13-2.6.0.tgz && pwd && tar -xvf kafka_2.13-2.6.0.tgz
+
+rm kafka_2.13-2.6.0.tgz
+
+# Create a conf
+cd apache-zookeeper-3.6.2-bin/conf
+touch "zoo.cfg"
+echo "tickTime=2000" >> zoo.cfg
+echo "dataDir=/var/zookeeper" >> zoo.cfg
+echo "clientPort=2181" >> zoo.cfg
+cd ..
+sudo bin/zkServer.sh start
+cd ..
+
+# 0.2 Desplegar
+
+cd kafka_2.13-2.6.0
+
+# Zookeeper: en una consola nueva en el directorio de descarga de kafka
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+# kafka: en una consola nueva en el directorio de descarga
+
+bin/kafka-server-start.sh config/server.properties
+
+ # En otra consola se crea un topic
+   
+      bin/kafka-topics.sh \
+          --create \
+          --zookeeper localhost:2181 \
+          --replication-factor 1 \
+          --partitions 1 \
+          --topic flight_delay_classification_request
+ 
+ # Debe aparecer el siguiente mensaje: 
+
+    Created topic "flight_delay_classification_request".
+  
+ # Se inspecciona la lista de topics:
+ 
+      bin/kafka-topics.sh --list --zookeeper localhost:2181
+  
+ # Salida:
+  
+    flight_delay_classification_request
+  
+# (Opcional) En una nueva consola se puede abir un consumidor para ver los mensajes que se envían a este topic.
+
+  
+  bin/kafka-console-consumer.sh \
+      --bootstrap-server localhost:9092 \
+      --topic flight_delay_classification_request \
+      --from-beginning
+  
 
 1. Descargar los datos de vuelos pasados.
-
-
 
 2. Entrenar el modelo de machine learning.
 3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado. 
