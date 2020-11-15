@@ -21,15 +21,15 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 ```bash
 # 0. Clonar el repo e instalar python3, spark, zookeeper y kafka.
 
-
-
 # Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
 sudo apt install default-jdk scala git -y
-
+java -version; javac -version; scala -version; git --version
 wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
+cd ./spark-2.4.7-bin-hadoop2.7.tgz/sbin/start-master.sh
 
 # Zookeeper 3.6.2
 wget https://apache.brunneis.com/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz && pwd && tar -xvf apache-zookeeper-3.6.2-bin.tar.gz
+
 
 # 
 git clone https://github.com/BDFI/practica_big_data.git
