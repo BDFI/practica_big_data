@@ -25,7 +25,14 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 sudo apt install default-jdk scala git -y
 java -version; javac -version; scala -version; git --version
 wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
-cd ./spark-2.4.7-bin-hadoop2.7.tgz/sbin/start-master.sh
+sudo mv spark-2.4.7-bin-hadoop2.7 /opt/spark 
+
+echo "export SPARK_HOME=/opt/spark" >> ~/.profile
+echo "export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.profile
+echo "export PYSPARK_PYTHON=/usr/bin/python3" >> ~/.profile
+source ~/.profile
+
+start-master.sh
 
 # Zookeeper 3.6.2
 wget https://apache.brunneis.com/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz && pwd && tar -xvf apache-zookeeper-3.6.2-bin.tar.gz
