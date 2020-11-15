@@ -22,6 +22,7 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 # 0. Clonar el repo e instalar python3, spark, zookeeper y kafka.
 
 
+
 # 0.1 descargar y comrpobar que funciona
 
 # Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
@@ -80,6 +81,13 @@ echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 
 sudo systemctl start mongod
 
+# Instalar pip
+sudo apt update
+sudo apt install python3-pip
+pip3 --version
+
+pip3 install -r requirements.txt
+
 # 0.2 Desplegar
 
 cd kafka_2.13-2.6.0
@@ -109,9 +117,7 @@ bin/kafka-server-start.sh config/server.properties
  
       bin/kafka-topics.sh --list --zookeeper localhost:2181
   
- # Salida:
-  
-    flight_delay_classification_request
+ # Salida:  flight_delay_classification_request
   
 # (Opcional) En una nueva consola se puede abir un consumidor para ver los mensajes que se envían a este topic.
 
@@ -126,10 +132,23 @@ bin/kafka-server-start.sh config/server.properties
 sudo apt install curl
 ./download_data.sh
 
+./resources/import_distances.sh
+
 # 2. Entrenar el modelo de machine learning.
+
+python3 resources/train_spark_mllib_model.py
+
 # 3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado. 
+
+
 # 4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask.
+
+python3 resources/web/predict_flask.py
+
 # 5. El servidor web enviará estos datos al job de predicción a través de Kafka.
+
+
+
 # 6. El job realizará la predicción y la guardará en Mongo.
 # 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 # 8. En caso afirmativo se muestra la predicción en la interfaz.
