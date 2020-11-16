@@ -26,6 +26,7 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 # 0.1 descargar y comrpobar que funciona
 
 # Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
+sudo apt-get update
 sudo apt install default-jdk scala git -y
 java -version; javac -version; scala -version; git --version
 wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
@@ -80,6 +81,7 @@ echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
 echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 
 sudo systemctl start mongod
+service mongod status
 
 # Instalar pip
 sudo apt update
@@ -111,7 +113,7 @@ bin/kafka-server-start.sh config/server.properties
  
  # Debe aparecer el siguiente mensaje: 
 
-    Created topic "flight_delay_classification_request".
+    # Created topic "flight_delay_classification_request".
   
  # Se inspecciona la lista de topics:
  
@@ -130,13 +132,13 @@ bin/kafka-server-start.sh config/server.properties
 # 1. Descargar los datos de vuelos pasados.
 
 sudo apt install curl
-./download_data.sh
+./resources/download_data.sh
 
 ./resources/import_distances.sh
 
 # 2. Entrenar el modelo de machine learning.
 
-python3 resources/train_spark_mllib_model.py
+python3 resources/train_spark_mllib_model.py .
 
 # 3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado. 
 
@@ -147,9 +149,12 @@ python3 resources/web/predict_flask.py
 
 # 5. El servidor web enviará estos datos al job de predicción a través de Kafka.
 
-
+# Se comprueba este mensaje en la consola de kafka
 
 # 6. El job realizará la predicción y la guardará en Mongo.
+
+python3 resources/fetch_prediction_requests.py
+
 # 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 # 8. En caso afirmativo se muestra la predicción en la interfaz.
 
