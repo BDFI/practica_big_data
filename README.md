@@ -28,6 +28,7 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 # Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
 sudo apt-get update
 sudo apt install default-jdk scala git -y
+sudo apt-get install openjdk-8-jre
 java -version; javac -version; scala -version; git --version
 wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
 sudo mv spark-2.4.7-bin-hadoop2.7 /opt/spark 
