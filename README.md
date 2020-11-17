@@ -35,6 +35,8 @@ sudo mv spark-2.4.7-bin-hadoop2.7 /opt/spark
 echo "export SPARK_HOME=/opt/spark" >> ~/.profile
 echo "export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.profile
 echo "export PYSPARK_PYTHON=/usr/bin/python3" >> ~/.profile
+echo  "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64" >> ~/.profile
+
 source ~/.profile
 
 rm spark-2.4.7-bin-hadoop2.7.tgz
@@ -145,6 +147,7 @@ bin/kafka-server-start.sh config/server.properties
 ./resources/import_distances.sh
 
 # 2. Entrenar el modelo de machine learning.
+   
 
 python3 resources/train_spark_mllib_model.py .
 
