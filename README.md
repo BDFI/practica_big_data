@@ -22,13 +22,12 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 # 0. Clonar el repo e instalar python3, spark, zookeeper y kafka.
 
 
-
 # 0.1 descargar y comrpobar que funciona
+
 
 # Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
 sudo apt-get update
-sudo apt install default-jdk scala git -y
-sudo apt-get install openjdk-8-jre
+sudo apt install openjdk-8-jre openjdk-8-jdk-headless scala git curl -y
 java -version; javac -version; scala -version; git --version
 wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
 sudo mv spark-2.4.7-bin-hadoop2.7 /opt/spark 
@@ -40,7 +39,7 @@ source ~/.profile
 
 rm spark-2.4.7-bin-hadoop2.7.tgz
 
-start-master.sh
+# start-master.sh
 
 # Zookeeper 3.6.2
 wget https://apache.brunneis.com/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz && pwd && tar -xvf apache-zookeeper-3.6.2-bin.tar.gz
@@ -71,7 +70,9 @@ git clone https://github.com/BDFI/practica_big_data.git
 
 # Mongo
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+#echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+# The last version for 20 this for 18 ubuntu
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 
@@ -139,7 +140,6 @@ bin/kafka-server-start.sh config/server.properties
  
 # 1. Descargar los datos de vuelos pasados.
 
-sudo apt install curl
 ./resources/download_data.sh
 
 ./resources/import_distances.sh
