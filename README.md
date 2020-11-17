@@ -35,8 +35,8 @@ sudo mv spark-2.4.7-bin-hadoop2.7 /opt/spark
 echo "export SPARK_HOME=/opt/spark" >> ~/.profile
 echo "export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.profile
 echo "export PYSPARK_PYTHON=/usr/bin/python3" >> ~/.profile
-echo  "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64" >> ~/.profile
-
+echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64" >> ~/.profile
+echo "export PROJECT_HOME=/home/ubuntu/practica_big_data" >> ~/.profile
 source ~/.profile
 
 rm spark-2.4.7-bin-hadoop2.7.tgz
@@ -147,11 +147,22 @@ bin/kafka-server-start.sh config/server.properties
 ./resources/import_distances.sh
 
 # 2. Entrenar el modelo de machine learning.
-   
 
 python3 resources/train_spark_mllib_model.py .
 
 # 3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado. 
+
+# Cambiar en cada caso el valor de val base_path y de project home 
+# /home/ubuntu/practica_big_data
+
+# Se compila y se ejcuta el predictor de scala
+# Se obtienen los comando de este link
+# https://alvinalexander.com/scala/sbt-how-to-compile-run-package-scala-project/
+cd flight_prediction
+sbt compile
+sbt run
+# para obtener el jar
+sbt package
 
 
 # 4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask.
