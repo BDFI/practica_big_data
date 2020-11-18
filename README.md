@@ -84,8 +84,6 @@ echo "mongodb-org-shell hold" | sudo dpkg --set-selections
 echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
 echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 
-sudo systemctl start mongod
-service mongod status
 
 # Instalar pip
 sudo apt update
@@ -140,6 +138,11 @@ bin/kafka-server-start.sh config/server.properties
       --topic flight_delay_classification_request \
       --from-beginning
  
+ # Mongo en otra consola
+ 
+sudo systemctl start mongod
+service mongod status
+ 
 # 1. Descargar los datos de vuelos pasados.
 
 ./resources/download_data.sh
@@ -182,6 +185,8 @@ python3 resources/fetch_prediction_requests.py
 
 
 ```
+
+
 
 
 Si se desea despelgar la arquitectura completa en GCP se podrían resumir así los pasos:
