@@ -41,7 +41,7 @@ source ~/.profile
 
 rm spark-2.4.7-bin-hadoop2.7.tgz
 
-# start-master.sh
+start-master.sh
 
 # Zookeeper 3.6.2
 wget https://apache.brunneis.com/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz && pwd && tar -xvf apache-zookeeper-3.6.2-bin.tar.gz
@@ -142,7 +142,11 @@ bin/kafka-server-start.sh config/server.properties
  
 sudo systemctl start mongod
 service mongod status
- 
+
+# Spark
+
+start-master.sh
+
 # 1. Descargar los datos de vuelos pasados.
 
 ./resources/download_data.sh
