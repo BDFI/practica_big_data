@@ -187,6 +187,9 @@ python3 resources/fetch_prediction_requests.py
 # 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 # 8. En caso afirmativo se muestra la predicción en la interfaz.
 
+#Se ejecuta spark submit en vez de sbt run (asegurarse antes con el comando: source ~/.profile que está actualizado el .profile)
+spark-submit flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar --packages org.mongodb.spark:mongo-spark-connector_2.13:2.6.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.7
+
 
 ```
 
