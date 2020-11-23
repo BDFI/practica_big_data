@@ -25,12 +25,14 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 # 0.1 descargar y comrpobar que funciona
 
 
-# Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
+# Instalar spark 2.4.0 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
 sudo apt-get update
 sudo apt install openjdk-8-jre openjdk-8-jdk-headless scala git curl -y
 java -version; javac -version; scala -version; git --version
-wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
-sudo mv spark-2.4.7-bin-hadoop2.7 /opt/spark 
+# wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
+wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.6.tgz && pwd && tar -xvf spark-2.4.0-bin-hadoop2.6.tgz 
+
+sudo mv spark-2.4.0-bin-hadoop2.6 /opt/spark 
 
 echo "export SPARK_HOME=/opt/spark" >> ~/.profile
 echo "export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.profile
@@ -39,7 +41,7 @@ echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64" >> ~/.profile
 echo "export PROJECT_HOME=/home/ubuntu/practica_big_data" >> ~/.profile
 source ~/.profile
 
-rm spark-2.4.7-bin-hadoop2.7.tgz
+rm spark-2.4.0-bin-hadoop2.6.tgz
 
 start-master.sh
 
@@ -49,11 +51,12 @@ wget https://apache.brunneis.com/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.
 rm apache-zookeeper-3.6.2-bin.tar.gz
 
 # kafka 2.3.
-#Este primer link da problemas con graddle (ver foro), se usa versión 2.6
+#Este primer link da problemas con graddle (ver foro), se usa versión 2.6 pero da problemas ocn el conector: se usa 2.12-2.3
 # wget https://archive.apache.org/dist/kafka/2.3.0/kafka-2.3.0-src.tgz && pwd && tar -xvf kafka-2.3.0-src.tgz
-wget https://apache.brunneis.com/kafka/2.6.0/kafka_2.13-2.6.0.tgz && pwd && tar -xvf kafka_2.13-2.6.0.tgz
+# wget https://apache.brunneis.com/kafka/2.6.0/kafka_2.13-2.6.0.tgz && pwd && tar -xvf kafka_2.13-2.6.0.tgz
+wget https://archive.apache.org/dist/kafka/2.3.0/kafka_2.12-2.3.0.tgz && pwd && tar -xvf kafka_2.12-2.3.0.tgz
 
-rm kafka_2.13-2.6.0.tgz
+rm kafka_2.12-2.3.0.tgz
 
 # Create a conf
 cd apache-zookeeper-3.6.2-bin/conf
@@ -101,17 +104,17 @@ sudo apt-get install sbt
 
 # 0.2 Desplegar
 
-cd kafka_2.13-2.6.0
+cd kafka_2.12-2.3.0
 
 # Zookeeper: en una consola nueva en el directorio de descarga de kafka
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
 # kafka: en una consola nueva en el directorio de descarga
-cd kafka_2.13-2.6.0
+cd kafka_2.12-2.3.0
 bin/kafka-server-start.sh config/server.properties
 
  # En otra consola se crea un topic
-  cd kafka_2.13-2.6.0 
+  cd kafka_2.12-2.3.0 
   
       bin/kafka-topics.sh \
           --create \
@@ -187,8 +190,6 @@ python3 resources/web/predict_flask.py
 # Se comprueba este mensaje en la consola de kafka
 
 # 6. El job realizará la predicción y la guardará en Mongo.
-
-python3 resources/fetch_prediction_requests.py
 
 # 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 # 8. En caso afirmativo se muestra la predicción en la interfaz.
