@@ -1,7 +1,7 @@
 El objetivo de este documento es describir cómo orquestrar la ejecución de disintos scritps (como pipeline de proceso de datos) con el fin de cumplir los siguientes objetivos:
 
-- [ ] [4 pts] Lograr el funcionamiento de la práctica sin realizar modificaciones.
-- [ ] [1 pto] Ejecución del job de predicción con Spark Submit en vez de IntelliJ.
+- [x] [4 pts] Lograr el funcionamiento de la práctica sin realizar modificaciones.
+- [x] [1 pto] Ejecución del job de predicción con Spark Submit en vez de IntelliJ.
 - [ ] [1 pto] Dockerizar cada uno de los servicios que componenen la arquitectura completa.
 - [ ] [2 pto] Desplegar el escenario completo usando kubernetes.
 - [ ] [1 pto] Desplegar el escenario completo en Google Cloud/AWS.
@@ -26,7 +26,7 @@ Instalación entorno local:
 
 Ejecución de prediciones:
 
-[![Make predictions]((https://img.youtube.com/vi/3X_pqKg6xyM/0.jpg))](https://www.youtube.com/watch?v=3X_pqKg6xyM)
+[![Make predictions](https://img.youtube.com/vi/3X_pqKg6xyM/0.jpg)](https://www.youtube.com/watch?v=3X_pqKg6xyM)
 
 ```bash
 # 0. Clonar el repo e instalar python3, spark, zookeeper y kafka.
