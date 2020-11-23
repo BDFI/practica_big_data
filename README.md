@@ -18,9 +18,15 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 8. En caso afirmativo se muestra la predicción en la interfaz.
 
+Se presentan los videos de como se ha isntalado el entorno local y cómo se ejecutan en él las predicciones:
+
+Instalación entorno local:
+
 [![Environment installation](https://img.youtube.com/vi/ghFbFGObSdo/0.jpg)](https://www.youtube.com/watch?v=ghFbFGObSdo)
 
-![Make predictions](https://www.youtube.com/watch?v=3X_pqKg6xyM)
+Ejecución de prediciones:
+
+[![Make predictions]((https://img.youtube.com/vi/3X_pqKg6xyM/0.jpg))](https://www.youtube.com/watch?v=3X_pqKg6xyM)
 
 ```bash
 # 0. Clonar el repo e instalar python3, spark, zookeeper y kafka.
