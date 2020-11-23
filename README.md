@@ -18,7 +18,7 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 8. En caso afirmativo se muestra la predicción en la interfaz.
 
-![Environment installation](https://www.youtube.com/watch?v=ghFbFGObSdo)
+[![Environment installation](https://img.youtube.com/vi/ghFbFGObSdo/0.jpg)](https://www.youtube.com/watch?v=ghFbFGObSdo)
 
 ![Make predictions](https://www.youtube.com/watch?v=3X_pqKg6xyM)
 
