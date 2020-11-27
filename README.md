@@ -1,4 +1,4 @@
-El objetivo de este documento es describir cómo orquestrar la ejecución de disintos scritps (como pipeline de proceso de datos) con el fin de cumplir los siguientes objetivos:
+El objetivo de este documento es describir cómo orquestrar la ejecución de distintas tareas con el fin de cumplir los siguientes objetivos:
 
 - [x] [4 pts] Lograr el funcionamiento de la práctica sin realizar modificaciones.
 - [x] [1 pto] Ejecución del job de predicción con Spark Submit en vez de IntelliJ.
@@ -7,7 +7,9 @@ El objetivo de este documento es describir cómo orquestrar la ejecución de dis
 - [ ] [1 pto] Desplegar el escenario completo en Google Cloud/AWS.
 - [ ] [2 ptos] Cambiar mongodb por Cassandra.
 
-Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada paso conlleva la ejecución de un cierto script que está relacionado con el despliegue de unos servicios (spark, kafka) en una máquina: a continuación se describe cómo se ejcuta en una máquina cada script del proceso y qué resultado se obtiene. Con ello, se consigue depurar estos scripts con el fin de poder adaptarlos para que se ejecuten con airflow o en gcp.
+a. Funcionamiento de la práctica y spark submit
+
+Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada paso conlleva la ejecución de una cierta tarea que está relacionado con el despliegue de unos servicios (spark, kafka) en una máquina: a continuación se describe cómo se ejcuta en una máquina cada script del proceso y qué resultado se obtiene. 
 
 1. Descargar los datos de vuelos pasados.
 2. Entrenar el modelo de machine learning.
@@ -210,8 +212,18 @@ python3 resources/web/predict_flask.py
 
 ```
 
+b. 
+
+A continuación se plantean las mejoras: primero se diseña una arquitectura en la nube ótpima en precio y en uso con piezas de gcloud, pero tras plantearse la funcionalidad inicial en local razonamos que es más versátil un despliegue en componentes genéricas.
 
 
+
+Se dockeriza cada componente de la arquitectura
+
+
+## Apéndice
+
+### Aproximación al despliegue en la nube con piezas específicas.
 
 Si se desea despelgar la arquitectura completa en GCP se podrían resumir así los pasos:
 
@@ -247,6 +259,7 @@ python3 predict_flask.py
 => si nos valoráis usar cloud run ¿podemos modificarlo para que atienda asíncronamente cuando le llegue unmesnaje por la cola?
 8. En caso afirmativo se muestra la predicción en la interfaz.
 
+### Instrucciones iniciales
 
 # Agile_Data_Code_2
 
