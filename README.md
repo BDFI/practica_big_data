@@ -216,9 +216,9 @@ b.
 
 A continuación se plantean las mejoras: primero se diseña una arquitectura en la nube ótpima en precio y en uso con piezas de gcloud, pero tras plantearse la funcionalidad inicial en local razonamos que es más versátil un despliegue en componentes genéricas.
 
+Se dockeriza cada componente de la arquitectura: nótese que los contenedores deben poseer ya los datos de forma interna.
 
 
-Se dockeriza cada componente de la arquitectura
 
 
 ## Apéndice
