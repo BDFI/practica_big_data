@@ -6,7 +6,7 @@ FROM bde2020/spark-base:2.4.4-hadoop2.7
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>"
 
-COPY master.sh /
+# COPY master.sh /
 
 ENV SPARK_HOME /spark
 ENV SPARK_MASTER_PORT 7077
