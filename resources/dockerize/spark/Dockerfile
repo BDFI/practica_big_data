@@ -13,7 +13,7 @@ ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT 8080
 ENV SPARK_MASTER_LOG /spark/logs
 
-RUN apk update && apk install curl tar wget git -y && apt install python3-venv python3-pip -y &&\
+RUN apk update && apk install curl tar wget git -y && apk install python3-venv python3-pip -y &&\
     rm -rf /var/lib/apt/lists/*
 RUN wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz
 RUN apk update && apk upgrade && apk install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev
