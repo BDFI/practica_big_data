@@ -195,7 +195,6 @@ sbt package
 ~/practica_big_data/flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar 
 
 
-
 # 4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask.
 
 python3 resources/web/predict_flask.py
@@ -208,7 +207,6 @@ python3 resources/web/predict_flask.py
 
 # 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 # 8. En caso afirmativo se muestra la predicción en la interfaz.
-
 
 ```
 
@@ -233,9 +231,14 @@ Web/mongo
 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 8. En caso afirmativo se muestra la predicción en la interfaz.
 
-A continuación, se contrauye cada contenedor en su carpeta
+A continuación, se contrauye cada contenedor en su carpeta:
+
+Se comprueba la iamgen de spark 2.4.4 con hadoop
 
 docker build --tag spark:1.0 .
+docker build --tag web:1.1 .
+docker run --publish 8000:5000 --detach --name miweb:1.1
+docker logs miweb
 
 ## Apéndice
 
