@@ -218,6 +218,8 @@ A continuación se plantean las mejoras: primero se diseña una arquitectura en 
 
 Se dockeriza cada componente de la arquitectura: nótese que los contenedores deben poseer ya los datos de forma interna. Se impelemnta un docker file y se sube cada uno a dockerhub. Se desarrolla este concepto de la división de las tareas entre contenedores y descirpción de eelos (Dockerfiles) de la capreta resources/dockerize
 
+https://docs.docker.com/get-started/
+
 spark
 ----
 1. Descargar los datos de vuelos pasados.
