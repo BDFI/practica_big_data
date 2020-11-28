@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 ENV TZ=Europe
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get install python3.6 -y && apt install python3-venv python3-pip -y
 WORKDIR /
 RUN apt-get update -y
