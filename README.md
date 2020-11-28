@@ -250,6 +250,9 @@ sudo docker logs flask
  * Debugger is active!
  * Debugger PIN: 152-783-455
  ```
+ 
+ docker push
+ docker-compose up 
 
 
 ## Apéndice
