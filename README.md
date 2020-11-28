@@ -237,8 +237,20 @@ Se comprueba la iamgen de spark 2.4.4 con hadoop
 
 docker build --tag spark:1.0 .
 docker build --tag web:1.1 .
-docker run --publish 8000:5000 --detach --name miweb:1.1
-docker logs miweb
+docker run --publish 8000:5000 --detach --name flask miweb:1.1
+sudo docker logs flask
+```
+ * Serving Flask app "predict_flask" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-783-455
+ ```
+
 
 ## Apéndice
 
