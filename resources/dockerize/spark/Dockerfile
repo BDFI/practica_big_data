@@ -13,14 +13,14 @@ ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT 8080
 ENV SPARK_MASTER_LOG /spark/logs
 
-RUN apt-get update && apt-get install curl tar wget git -y && apt install python3-venv python3-pip -y &&\
+RUN apk update && apk install curl tar wget git -y && apt install python3-venv python3-pip -y &&\
     rm -rf /var/lib/apt/lists/*
 RUN wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz
-RUN apt-get update && apt-get upgrade && apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev
+RUN apk update && apk upgrade && apk install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev
 RUN tar xvf Python-3.6.5.tgz
 WORKDIR Python-3.6.5
 RUN ./configure --enable-optimizations --with-ensurepip=install && make -j 8 && make altinstall
-RUN apt-get update && apt install python3-venv python3-pip -y &&\
+RUN apk update && apt install python3-venv python3-pip -y &&\
     rm -rf /var/lib/apt/lists/*
 
 
