@@ -233,6 +233,9 @@ Web/mongo
 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 8. En caso afirmativo se muestra la predicción en la interfaz.
 
+A continuación, se contrauye cada contenedor en su carpeta
+
+docker build --tag spark:1.0 .
 
 ## Apéndice
 
