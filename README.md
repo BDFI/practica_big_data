@@ -216,9 +216,20 @@ b.
 
 A continuación se plantean las mejoras: primero se diseña una arquitectura en la nube ótpima en precio y en uso con piezas de gcloud, pero tras plantearse la funcionalidad inicial en local razonamos que es más versátil un despliegue en componentes genéricas.
 
-Se dockeriza cada componente de la arquitectura: nótese que los contenedores deben poseer ya los datos de forma interna. Se impelemnta un docker file y se sube cada uno a dockerhub.
+Se dockeriza cada componente de la arquitectura: nótese que los contenedores deben poseer ya los datos de forma interna. Se impelemnta un docker file y se sube cada uno a dockerhub. Se desarrolla este concepto de la división de las tareas entre contenedores y descirpción de eelos (Dockerfiles) de la capreta resources/dockerize
 
-
+spark
+----
+1. Descargar los datos de vuelos pasados.
+2. Entrenar el modelo de machine learning.
+3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado. 
+----
+Web/mongo
+4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask.
+5. El servidor web enviará estos datos al job de predicción a través de Kafka.
+6. El job realizará la predicción y la guardará en Mongo.
+7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
+8. En caso afirmativo se muestra la predicción en la interfaz.
 
 
 ## Apéndice
