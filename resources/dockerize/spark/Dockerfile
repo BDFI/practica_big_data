@@ -21,7 +21,7 @@ RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoo
 # 2.4.4
 # https://archive.apache.org/dist/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.6.tgz
 WORKDIR /home/spark-2.4.0-bin-hadoop2.6/sbin/
-RUN start-master.sh
+RUN ./start-master.sh
 
 # Instalar pip
 RUN sudo apt update
