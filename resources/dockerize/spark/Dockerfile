@@ -26,9 +26,9 @@ RUN ls
 
 RUN export SPARK_MASTER_HOST=`hostname`
 
-RUN . "/spark/sbin/spark-config.sh"
+RUN . "/spark-2.4.0-bin-hadoop2.6/sbin/spark-config.sh"
 
-RUN . "/spark/bin/load-spark-env.sh"
+RUN . "/spark-2.4.0-bin-hadoop2.6/bin/load-spark-env.sh"
 
 RUN mkdir -p $SPARK_MASTER_LOG
 
