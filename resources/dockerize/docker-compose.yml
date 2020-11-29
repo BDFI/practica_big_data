@@ -38,19 +38,19 @@ services:
       MONGODB_DATA_DIR: /data/db
 
   mongo_executor:
-    image: ablazleon/mongo-executor
+    image: ablazleon/mongo_executor
     container_name: mongo_executor
     depends_on:
       - mongo
     
   web:
     container_name: web
-    image: ablazleon/my_flask
+    image: alejandrorg7/web
     ports:
       - "5000:5000"
       - "9200:9200"
     depends_on:
-      - mongo_seed
+      - mongo_executor
       - spark
     hostname: web
     environment:
