@@ -243,6 +243,7 @@ sudo docker logs flask
 
 #docker image ls : para ver la lista de imágenes creadas después del build
 #docker ps --all : para ver la lista de contenedores corriendo
+#docker run --publish 8000:27017 --detach --name mongo mongo:1.0
 ```
 
 ```
