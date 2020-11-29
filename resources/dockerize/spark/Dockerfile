@@ -27,7 +27,7 @@ RUN ls
 # Instalar pip
 WORKDIR /home
 RUN apt update
-RUN sudo apt install python3-pip
+RUN apt install python3-pip
 RUN pip3 --version
 RUN python3 --version
 
