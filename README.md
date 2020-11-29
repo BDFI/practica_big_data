@@ -1,13 +1,15 @@
-El objetivo de este documento es describir cómo orquestrar la ejecución de disintos scritps (como pipeline de proceso de datos) con el fin de cumplir los siguientes objetivos:
+El objetivo de este documento es describir cómo orquestrar la ejecución de distintas tareas con el fin de cumplir los siguientes objetivos:
 
-- [ ] [4 pts] Lograr el funcionamiento de la práctica sin realizar modificaciones.
-- [ ] [1 pto] Ejecución del job de predicción con Spark Submit en vez de IntelliJ.
+- [x] [4 pts] Lograr el funcionamiento de la práctica sin realizar modificaciones.
+- [x] [1 pto] Ejecución del job de predicción con Spark Submit en vez de IntelliJ.
 - [ ] [1 pto] Dockerizar cada uno de los servicios que componenen la arquitectura completa.
 - [ ] [2 pto] Desplegar el escenario completo usando kubernetes.
 - [ ] [1 pto] Desplegar el escenario completo en Google Cloud/AWS.
 - [ ] [2 ptos] Cambiar mongodb por Cassandra.
 
-Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada paso conlleva la ejecución de un cierto script que está relacionado con el despliegue de unos servicios (spark, kafka) en una máquina: a continuación se describe cómo se ejcuta en una máquina cada script del proceso y qué resultado se obtiene. Con ello, se consigue depurar estos scripts con el fin de poder adaptarlos para que se ejecuten con airflow o en gcp.
+a. Funcionamiento de la práctica y spark submit
+
+Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada paso conlleva la ejecución de una cierta tarea que está relacionado con el despliegue de unos servicios (spark, kafka) en una máquina: a continuación se describe cómo se ejcuta en una máquina cada script del proceso y qué resultado se obtiene. 
 
 1. Descargar los datos de vuelos pasados.
 2. Entrenar el modelo de machine learning.
@@ -18,6 +20,16 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 8. En caso afirmativo se muestra la predicción en la interfaz.
 
+Se presentan los videos de como se ha isntalado el entorno local y cómo se ejecutan en él las predicciones:
+
+Instalación entorno local:
+
+[![Environment installation](https://img.youtube.com/vi/ghFbFGObSdo/0.jpg)](https://www.youtube.com/watch?v=ghFbFGObSdo)
+
+Ejecución de prediciones:
+
+[![Make predictions](https://img.youtube.com/vi/3X_pqKg6xyM/0.jpg)](https://www.youtube.com/watch?v=3X_pqKg6xyM)
+
 ```bash
 # 0. Clonar el repo e instalar python3, spark, zookeeper y kafka.
 
@@ -25,12 +37,14 @@ Para ello se sigue y documenta cada paso del siguiente proceso. En resumen, cada
 # 0.1 descargar y comrpobar que funciona
 
 
-# Instalar spark 2.4.7 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
+# Instalar spark 2.4.0 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
 sudo apt-get update
 sudo apt install openjdk-8-jre openjdk-8-jdk-headless scala git curl -y
 java -version; javac -version; scala -version; git --version
-wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
-sudo mv spark-2.4.7-bin-hadoop2.7 /opt/spark 
+# wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
+wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.6.tgz && pwd && tar -xvf spark-2.4.0-bin-hadoop2.6.tgz 
+
+sudo mv spark-2.4.0-bin-hadoop2.6 /opt/spark 
 
 echo "export SPARK_HOME=/opt/spark" >> ~/.profile
 echo "export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.profile
@@ -39,7 +53,7 @@ echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64" >> ~/.profile
 echo "export PROJECT_HOME=/home/ubuntu/practica_big_data" >> ~/.profile
 source ~/.profile
 
-rm spark-2.4.7-bin-hadoop2.7.tgz
+rm spark-2.4.0-bin-hadoop2.6.tgz
 
 start-master.sh
 
@@ -49,11 +63,12 @@ wget https://apache.brunneis.com/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.
 rm apache-zookeeper-3.6.2-bin.tar.gz
 
 # kafka 2.3.
-#Este primer link da problemas con graddle (ver foro), se usa versión 2.6
+#Este primer link da problemas con graddle (ver foro), se usa versión 2.6 pero da problemas ocn el conector: se usa 2.12-2.3
 # wget https://archive.apache.org/dist/kafka/2.3.0/kafka-2.3.0-src.tgz && pwd && tar -xvf kafka-2.3.0-src.tgz
-wget https://apache.brunneis.com/kafka/2.6.0/kafka_2.13-2.6.0.tgz && pwd && tar -xvf kafka_2.13-2.6.0.tgz
+# wget https://apache.brunneis.com/kafka/2.6.0/kafka_2.13-2.6.0.tgz && pwd && tar -xvf kafka_2.13-2.6.0.tgz
+wget https://archive.apache.org/dist/kafka/2.3.0/kafka_2.12-2.3.0.tgz && pwd && tar -xvf kafka_2.12-2.3.0.tgz
 
-rm kafka_2.13-2.6.0.tgz
+rm kafka_2.12-2.3.0.tgz
 
 # Create a conf
 cd apache-zookeeper-3.6.2-bin/conf
@@ -101,17 +116,17 @@ sudo apt-get install sbt
 
 # 0.2 Desplegar
 
-cd kafka_2.13-2.6.0
+cd kafka_2.12-2.3.0
 
 # Zookeeper: en una consola nueva en el directorio de descarga de kafka
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
 # kafka: en una consola nueva en el directorio de descarga
-cd kafka_2.13-2.6.0
+cd kafka_2.12-2.3.0
 bin/kafka-server-start.sh config/server.properties
 
  # En otra consola se crea un topic
-  cd kafka_2.13-2.6.0 
+  cd kafka_2.12-2.3.0 
   
       bin/kafka-topics.sh \
           --create \
@@ -171,12 +186,14 @@ sbt compile
 # para obtener el jar
 sbt package
 #Se ejecuta spark submit en vez de sbt run (asegurarse antes con el comando: source ~/.profile que está actualizado el .profile) (y con printenv que las varialbes de entorno se han guardado)
-spark-submit flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar --packages org.mongodb.spark:mongo-spark-connector_2.13:2.6.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.7
+# spark-submit flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar --packages org.mongodb.spark:mongo-spark-connector_2.13:2.6.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.7
 
+# Comprobando con printenv que existen las variables de estado
 ./spark-submit --master local \
-~/practica_big_data/flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar \
---class ~/practica_big_data/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala \
---packages org.mongodb.spark:mongo-spark-connector_2.13:2.6.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.7
+--class es.upm.dit.ging.predictor.MakePrediction \
+ --packages org.mongodb.spark:mongo-spark-connector_2.11:2.3.2,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0 \
+~/practica_big_data/flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar 
+
 
 # 4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask.
 
@@ -188,16 +205,84 @@ python3 resources/web/predict_flask.py
 
 # 6. El job realizará la predicción y la guardará en Mongo.
 
-python3 resources/fetch_prediction_requests.py
-
 # 7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
 # 8. En caso afirmativo se muestra la predicción en la interfaz.
 
-
 ```
 
+b. 
+
+A continuación se plantean las mejoras: primero se diseña una arquitectura en la nube ótpima en precio y en uso con piezas de gcloud, pero tras plantearse la funcionalidad inicial en local razonamos que es más versátil un despliegue en componentes genéricas.
+
+Se dockeriza cada componente de la arquitectura: nótese que los contenedores deben poseer ya los datos de forma interna. Se impelemnta un docker file y se sube cada uno a dockerhub. Se desarrolla este concepto de la división de las tareas entre contenedores y descirpción de eelos (Dockerfiles) de la capreta resources/dockerize
+
+https://docs.docker.com/get-started/
+
+spark
+----
+1. Descargar los datos de vuelos pasados.
+2. Entrenar el modelo de machine learning.
+3. Desplegar el job de Spark que predice el retraso de los vuelos usando el modelo creado. 
+----
+Web/mongo
+4. Por medio de una interfaz web, el usuario introducirá datos del vuelo a predecir, que se enviarán al servidor web de Flask.
+5. El servidor web enviará estos datos al job de predicción a través de Kafka.
+6. El job realizará la predicción y la guardará en Mongo.
+7. La interfaz web está constantemente haciendo pollingpara comprobar si se ha realizado ya la predicción.
+8. En caso afirmativo se muestra la predicción en la interfaz.
+
+A continuación, se contrauye cada contenedor en su carpeta:
+
+Se comprueba la iamgen de spark 2.4.4 con hadoop
+
+```
+docker build --tag spark:1.0 .
+docker build --tag web:1.1 .
+docker build --tag mongo_executor:1.1 .
+docker run --publish 8000:5000 --detach --name flask miweb:1.1
+sudo docker logs flask
+
+#docker image ls : para ver la lista de imágenes creadas después del build
+#docker ps --all : para ver la lista de contenedores corriendo
+#docker run --publish 8000:27017 --detach --name mongo mongo:1.0
+
+#sudo docker tag 175ccfa86211 sfereres/mongo:mongo_executor
+#sudo docker push sfereres/mongo
+
+#sudo docker tag 8c74e94a3111 alejandrorg7/web:1.1 : tag del contenedor antes del push
+#sudo docker push alejandrorg7/web : push al dockerhub
+```
+
+```
+ * Serving Flask app "predict_flask" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-783-455
+ ```
+ #Instalación docker compose
+ #sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+ 
+ docker push
+ docker-compose up 
 
 
+ ```
+docker exec -it --master local \
+--class es.upm.dit.ging.predictor.MakePrediction \
+ --packages org.mongodb.spark:mongo-spark-connector_2.11:2.3.2,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0 \
+~/practica_big_data/flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar 
+ ```
+
+
+
+## Apéndice
+
+### Aproximación al despliegue en la nube con piezas específicas.
 
 Si se desea despelgar la arquitectura completa en GCP se podrían resumir así los pasos:
 
@@ -233,6 +318,7 @@ python3 predict_flask.py
 => si nos valoráis usar cloud run ¿podemos modificarlo para que atienda asíncronamente cuando le llegue unmesnaje por la cola?
 8. En caso afirmativo se muestra la predicción en la interfaz.
 
+### Instrucciones iniciales
 
 # Agile_Data_Code_2
 
