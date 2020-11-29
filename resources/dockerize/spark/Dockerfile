@@ -55,4 +55,4 @@ RUN sbt package
 
 EXPOSE 8080 7077 6066
 
-CMD ["/bin/bash", "/master.sh"]
+# CMD ["/bin/bash", "/master.sh"]
