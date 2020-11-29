@@ -46,8 +46,8 @@ RUN git clone https://github.com/BDFI/practica_big_data.git
 WORKDIR /practica_big_data
 RUN resources/download_data.sh
 
-RUN pip3 install -r requirements.txt
-RUN python3 resources/train_spark_mllib_model.py .
+#RUN pip3 install -r requirements.txt
+#RUN python3 resources/train_spark_mllib_model.py .
 WORKDIR /practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/
 # COPY practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala /practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala
 RUN sbt compile
