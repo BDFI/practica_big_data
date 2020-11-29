@@ -24,11 +24,10 @@ WORKDIR /home/spark-2.4.0-bin-hadoop2.6/sbin/
 RUN ./start-master.sh
 
 # Instalar pip
+WORKDIR /home
 RUN sudo apt update
 RUN sudo apt install python3-pip
 RUN pip3 --version
-
-RUN pip3 install -r requirements.txt
 RUN python3 --version
 
 ARG SBT_VERSION=1.1.5
