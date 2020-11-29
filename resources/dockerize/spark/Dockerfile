@@ -33,11 +33,15 @@ RUN apk add git
 WORKDIR /
 RUN git clone https://github.com/ging/practica_big_data_2019
 WORKDIR /practica_big_data_2019
-RUN resources/download_data.sh && mkdir data && mv simple_flight_delay_features.jsonl.bz2 data/simple_flight_delay_features.jsonl.bz2 && mv origin_dest_distances.jsonl data/origin_dest_distances.jsonl
+RUN resources/download_data.sh && mkdir data 
+RUN mv simple_flight_delay_features.jsonl.bz2 data/simple_flight_delay_features.jsonl.bz2 
+RUN mv origin_dest_distances.jsonl data/origin_dest_distances.jsonl
+
 RUN pip3 install -r requirements.txt
 RUN python3 resources/train_spark_mllib_model.py .
-WORKDIR /practica_big_data_2019/flight_prediction
-COPY practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala /practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala
+WORKDIR /practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/
+# COPY practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala /practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala
+RUN sbt compile
 RUN sbt package
 
 EXPOSE 8080 7077 6066
