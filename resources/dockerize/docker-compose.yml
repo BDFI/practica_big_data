@@ -50,7 +50,7 @@ services:
       - "5000:5000"
       - "9200:9200"
     depends_on:
-      - mongo_executor:1.0
+      - mongo_executor
       - spark
     hostname: web
     environment:
