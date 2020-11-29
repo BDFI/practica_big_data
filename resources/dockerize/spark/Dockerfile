@@ -13,6 +13,7 @@ ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT 8080
 ENV SPARK_MASTER_LOG /spark/logs
 
+# Install python
 # https://stackoverflow.com/questions/62554991/how-do-i-install-python-on-alpine-linux
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
@@ -23,6 +24,10 @@ ARG SBT_VERSION=1.1.5
 ARG SBT_HOME=/usr/local/sbt
 RUN curl -sL "https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz" | tar -xz -C /usr/local
 ENV PATH $SBT_HOME/bin:$PATH
+
+# Git install
+RUN apk update
+RUN apk add git
 
 # 1,2
 WORKDIR /
