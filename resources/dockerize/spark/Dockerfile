@@ -34,8 +34,6 @@ WORKDIR /
 RUN git clone https://github.com/BDFI/practica_big_data.git
 WORKDIR /practica_big_data
 RUN resources/download_data.sh
-RUN mv simple_flight_delay_features.jsonl.bz2 data/simple_flight_delay_features.jsonl.bz2 
-RUN mv origin_dest_distances.jsonl data/origin_dest_distances.jsonl
 
 RUN pip3 install -r requirements.txt
 RUN python3 resources/train_spark_mllib_model.py .
