@@ -37,9 +37,9 @@ services:
     environment:
       MONGODB_DATA_DIR: /data/db
 
-  mongo_seed:
-    image: ablazleon/mongo-seed
-    container_name: mongo_seed
+  mongo_executor:
+    image: ablazleon/mongo-executor
+    container_name: mongo_executor
     depends_on:
       - mongo
     
