@@ -39,7 +39,7 @@ services:
 
   mongo_executor:
     container_name: mongo_executor:1.0
-    image: sfereres/mongo
+    image: sfereres/mongo:mongo_executor
     depends_on:
       - mongo
     
