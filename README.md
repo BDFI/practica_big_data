@@ -239,6 +239,10 @@ docker build --tag spark:1.0 .
 docker build --tag web:1.1 .
 docker run --publish 8000:5000 --detach --name flask miweb:1.1
 sudo docker logs flask
+
+#docker image ls : para ver la lista de imágenes creadas después del build
+#docker ps --all : para ver la lista de contenedores corriendo
+
 ```
  * Serving Flask app "predict_flask" (lazy loading)
  * Environment: production
