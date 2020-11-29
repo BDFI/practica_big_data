@@ -1,4 +1,4 @@
-# 0. Descargar spark y sbt
+# 0. Descargar spark, python y sbt
 # 1,2, ejecutar entrenamiento y predicción
 
 # 0
@@ -13,16 +13,11 @@ ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT 8080
 ENV SPARK_MASTER_LOG /spark/logs
 
-RUN apk update && apk install curl tar wget git -y && apk install python3-venv python3-pip -y &&\
-    rm -rf /var/lib/apt/lists/*
-RUN wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz
-RUN apk update && apk upgrade && apk install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev
-RUN tar xvf Python-3.6.5.tgz
-WORKDIR Python-3.6.5
-RUN ./configure --enable-optimizations --with-ensurepip=install && make -j 8 && make altinstall
-RUN apk update && apt install python3-venv python3-pip -y &&\
-    rm -rf /var/lib/apt/lists/*
-
+# https://stackoverflow.com/questions/62554991/how-do-i-install-python-on-alpine-linux
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
 
 ARG SBT_VERSION=1.1.5
 ARG SBT_HOME=/usr/local/sbt
