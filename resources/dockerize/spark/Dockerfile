@@ -15,25 +15,34 @@ ENV SPARK_MASTER_LOG /spark/logs
 RUN apt-get update
 RUN apt install openjdk-8-jre openjdk-8-jdk-headless scala git wget curl -y
 RUN java -version; javac -version; scala -version; git --version
-WORKDIR /home
+WORKDIR /
 # wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
 RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.6.tgz && pwd && tar -xvf spark-2.4.0-bin-hadoop2.6.tgz 
 # 2.4.4
 # https://archive.apache.org/dist/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.6.tgz
-WORKDIR /home/spark-2.4.0-bin-hadoop2.6/sbin/
+WORKDIR /spark-2.4.0-bin-hadoop2.6/sbin/
 RUN ls
-RUN /start-master.sh
-WORKDIR /home/spark-2.4.0-bin-hadoop2.6/bin
+#RUN /start-master.sh
+
+RUN export SPARK_MASTER_HOST=`hostname`
+
+RUN . "/spark/sbin/spark-config.sh"
+
+RUN . "/spark/bin/load-spark-env.sh"
+
+RUN mkdir -p $SPARK_MASTER_LOG
+
+RUN ln -sf /dev/stdout $SPARK_MASTER_LOG/spark-master.out
+
+WORKDIR cd /spark/bin 
+
+RUN /spark/sbin/../bin/spark-class org.apache.spark.deploy.master.Master \
+    --ip $SPARK_MASTER_HOST --port $SPARK_MASTER_PORT --webui-port $SPARK_MASTER_WEBUI_PORT >> $SPARK_MASTER_LOG/spark-master.out
+
+WORKDIR /spark-2.4.0-bin-hadoop2.6/bin
 RUN ls
 RUN ./spark-submit --version
 
-
-# Instalar pip
-WORKDIR /home
-RUN apt update
-RUN apt install python3-pip -y
-RUN pip3 --version
-RUN python3 --version
 
 ARG SBT_VERSION=1.1.5
 ARG SBT_HOME=/usr/local/sbt
@@ -55,7 +64,7 @@ RUN sbt package
 
 EXPOSE 8080 7077 6066
 
-WORKDIR /home/spark-2.4.0-bin-hadoop2.6/bin
+WORKDIR /spark-2.4.0-bin-hadoop2.6/bin
 RUN ./spark-submit --master local \
 --class es.upm.dit.ging.predictor.MakePrediction \
  --packages org.mongodb.spark:mongo-spark-connector_2.11:2.3.2,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0 \
