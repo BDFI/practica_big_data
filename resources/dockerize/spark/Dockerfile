@@ -23,6 +23,9 @@ RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoo
 WORKDIR /home/spark-2.4.0-bin-hadoop2.6/sbin/
 RUN ls
 # RUN ./start-master.sh
+WORKDIR /home/spark-2.4.0-bin-hadoop2.6/sbin/bin
+RUN spark-submit --version
+
 
 # Instalar pip
 WORKDIR /home
