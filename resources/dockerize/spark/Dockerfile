@@ -19,7 +19,7 @@ RUN java -version; javac -version; scala -version; git --version
 RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.6.tgz && pwd && tar -xvf spark-2.4.0-bin-hadoop2.6.tgz 
 # 2.4.4
 # https://archive.apache.org/dist/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.6.tgz
-RUN cd spark-2.4.0-bin-hadoop2.6/bin/
+RUN cd spark-2.4.0-bin-hadoop2.6/sbin/
 RUN start-master.sh
 
 # Instalar pip
