@@ -251,6 +251,9 @@ sudo docker logs flask
 
 #sudo docker tag 8c74e94a3111 alejandrorg7/web:1.1 : tag del contenedor antes del push
 #sudo docker push alejandrorg7/web : push al dockerhub
+
+#sudo docker tag 5468476c3889 sfereres/spark:1.2
+# sudo docker push sfereres/spark:1.2
 ```
 
 ```
