@@ -9,4 +9,4 @@ RUN git clone https://github.com/BDFI/practica_big_data
 #COPY practica_big_data/ /home
 #WORKDIR /home
 WORKDIR /practica_big_data
-CMD resources/import_distances.sh
+# CMD resources/import_distances.sh
