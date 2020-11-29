@@ -33,7 +33,8 @@ RUN apk add git
 WORKDIR /
 RUN git clone https://github.com/ging/practica_big_data_2019
 WORKDIR /practica_big_data_2019
-RUN resources/download_data.sh && mkdir data 
+RUN resources/download_data.sh
+RUN mkdir data 
 RUN mv simple_flight_delay_features.jsonl.bz2 data/simple_flight_delay_features.jsonl.bz2 
 RUN mv origin_dest_distances.jsonl data/origin_dest_distances.jsonl
 
