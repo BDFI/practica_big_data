@@ -51,7 +51,7 @@ services:
       - "9200:9200"
     depends_on:
       - mongo_executor
-      - spark
+ #     - spark
     hostname: web
     environment:
       MONGO_URI: mongo
