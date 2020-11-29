@@ -2,9 +2,7 @@
 # 1,2, ejecutar entrenamiento y predicción
 
 # 0
-FROM bde2020/spark-base:2.4.4-hadoop2.7
-
-LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>"
+FROM ubuntu:18.04
 
 # COPY master.sh /
 
@@ -12,6 +10,14 @@ ENV SPARK_HOME /spark
 ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT 8080
 ENV SPARK_MASTER_LOG /spark/logs
+
+# Instalar spark 2.4.0 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
+apt-get update
+apt install openjdk-8-jre openjdk-8-jdk-headless scala git curl -y
+java -version; javac -version; scala -version; git --version
+# wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
+wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.6.tgz && pwd && tar -xvf spark-2.4.0-bin-hadoop2.6.tgz 
+start-master.sh
 
 # Install python
 RUN apk add python3
