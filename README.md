@@ -238,6 +238,7 @@ Se comprueba la iamgen de spark 2.4.4 con hadoop
 ```
 docker build --tag spark:1.0 .
 docker build --tag web:1.1 .
+docker build --tag mongo_executor:1.1 .
 docker run --publish 8000:5000 --detach --name flask miweb:1.1
 sudo docker logs flask
 
