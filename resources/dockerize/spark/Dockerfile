@@ -13,7 +13,7 @@ ENV SPARK_MASTER_LOG /spark/logs
 
 # Instalar spark 2.4.0 (para entrenar y realizar las predicciones). Se despliega un nodo máster local [https://phoenixnap.com/kb/install-spark-on-ubuntu]
 RUN apt-get update
-RUN apt install openjdk-8-jre openjdk-8-jdk-headless scala git curl -y
+RUN apt install openjdk-8-jre openjdk-8-jdk-headless scala git wget curl -y
 RUN java -version; javac -version; scala -version; git --version
 # wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
 RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.6.tgz && pwd && tar -xvf spark-2.4.0-bin-hadoop2.6.tgz 
