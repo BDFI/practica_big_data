@@ -59,8 +59,8 @@ services:
       FLASK_URI: web
 
   spark:
-    image: ablazleon/my_spark
-    container_name: spark
+    image: sfereres/spark:1.2
+    container_name: spark:1.2
     ports:
       - "7077:7077"
     depends_on:
