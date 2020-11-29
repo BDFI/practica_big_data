@@ -55,6 +55,7 @@ RUN sbt package
 
 EXPOSE 8080 7077 6066
 
+WORKDIR /home/spark-2.4.0-bin-hadoop2.6/bin
 RUN ./spark-submit --master local \
 --class es.upm.dit.ging.predictor.MakePrediction \
  --packages org.mongodb.spark:mongo-spark-connector_2.11:2.3.2,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0 \
