@@ -38,8 +38,8 @@ services:
       MONGODB_DATA_DIR: /data/db
 
   mongo_executor:
-    image: ablazleon/mongo_executor
-    container_name: mongo_executor
+    image: sfereres/mongo
+    container_name: mongo_executor:1.0
     depends_on:
       - mongo
     
