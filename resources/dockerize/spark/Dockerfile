@@ -17,22 +17,22 @@ RUN apt install openjdk-8-jre openjdk-8-jdk-headless scala git curl -y
 RUN java -version; javac -version; scala -version; git --version
 # wget https://ftp.cixug.es/apache/spark/spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz && pwd && tar -xvf spark-2.4.7-bin-hadoop2.7.tgz
 RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.6.tgz && pwd && tar -xvf spark-2.4.0-bin-hadoop2.6.tgz 
+# 2.4.4
+# https://archive.apache.org/dist/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.6.tgz
 RUN start-master.sh
 
-# Install python
-RUN apk add python3
-RUN apk add py3-pip
+# Instalar pip
+RUN sudo apt update
+RUN sudo apt install python3-pip
+RUN pip3 --version
 
+RUN pip3 install -r requirements.txt
 RUN python3 --version
 
 ARG SBT_VERSION=1.1.5
 ARG SBT_HOME=/usr/local/sbt
 RUN curl -sL "https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz" | tar -xz -C /usr/local
 ENV PATH $SBT_HOME/bin:$PATH
-
-# Git install
-RUN apk update
-RUN apk add git
 
 # 1,2
 WORKDIR /
