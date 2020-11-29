@@ -245,6 +245,9 @@ sudo docker logs flask
 #docker image ls : para ver la lista de imágenes creadas después del build
 #docker ps --all : para ver la lista de contenedores corriendo
 #docker run --publish 8000:27017 --detach --name mongo mongo:1.0
+
+#sudo docker tag 8c74e94a3111 alejandrorg7/web:1.1 : tag del contenedor antes del push
+#sudo docker push alejandrorg7/web : push al dockerhub
 ```
 
 ```
