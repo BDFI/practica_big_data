@@ -24,6 +24,7 @@ WORKDIR /home/spark-2.4.0-bin-hadoop2.6/sbin/
 RUN ls
 # RUN ./start-master.sh
 WORKDIR /home/spark-2.4.0-bin-hadoop2.6/bin
+RUN ls
 RUN spark-submit --version
 
 
