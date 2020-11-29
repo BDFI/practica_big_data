@@ -14,9 +14,8 @@ ENV SPARK_MASTER_WEBUI_PORT 8080
 ENV SPARK_MASTER_LOG /spark/logs
 
 # Install python
-RUN add-apk-repository ppa:deadsnakes/ppa
-RUN apk-get update
-RUN apk-get install python3.6.9
+RUN apk add python3
+RUN apk add py3-pip
 
 RUN python3 --version
 
