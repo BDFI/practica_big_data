@@ -246,6 +246,9 @@ sudo docker logs flask
 #docker ps --all : para ver la lista de contenedores corriendo
 #docker run --publish 8000:27017 --detach --name mongo mongo:1.0
 
+#sudo docker tag 175ccfa86211 sfereres/mongo:mongo_executor
+#sudo docker push sfereres/mongo
+
 #sudo docker tag 8c74e94a3111 alejandrorg7/web:1.1 : tag del contenedor antes del push
 #sudo docker push alejandrorg7/web : push al dockerhub
 ```
