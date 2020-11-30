@@ -74,5 +74,3 @@ services:
 
 volumes:
   data:
-volumes:
-  data:
