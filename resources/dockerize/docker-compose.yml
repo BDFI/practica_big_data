@@ -1,7 +1,7 @@
 version: "3"
 services:
   miweb:
-    container_name: web
+    container_name: miweb2
     image: alejandrorg7/web:1.1
     ports:
       - "5000:5000"
