@@ -59,8 +59,8 @@ services:
       FLASK_URI: web
 
   spark:
-    image: sfereres/spark:1.2
-    container_name: spark:1.2
+    image: alejandrorg7/spark
+    container_name: spark:1.0
     ports:
       - "7077:7077"
     depends_on:
