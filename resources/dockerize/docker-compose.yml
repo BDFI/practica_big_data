@@ -1,7 +1,6 @@
 version: "3"
 services:
-    
-  web:
+  miweb:
     container_name: web
     image: alejandrorg7/web:1.1
     ports:
