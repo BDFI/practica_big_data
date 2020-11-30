@@ -12,8 +12,6 @@ ENV SPARK_MASTER_LOG /spark/logs
 RUN apk add git
 RUN git clone https://github.com/ging/practica_big_data_2019
 WORKDIR /practica_big_data_2019/flight_prediction
-COPY practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala /practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala
-
 EXPOSE 8080 7077 6066
 
 CMD ["/bin/bash", "/master.sh"]
