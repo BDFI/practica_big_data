@@ -59,7 +59,7 @@ services:
       FLASK_URI: web
 
   spark:
-    image: sfereres/spark-hadoop:1.0
+    image: alejandrorg7/spark:1.1
     container_name: spark
     ports:
       - "7077:7077"
