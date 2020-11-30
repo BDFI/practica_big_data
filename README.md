@@ -278,20 +278,13 @@ sudo docker logs web
  docker-compose up 
 
 ```
-  docker exec -it kafka bin/kafka-topics.sh \
-          --create \
-          --zookeeper localhost:2181 \
-          --replication-factor 1 \
-          --partitions 1 \
-          --topic flight_delay_classification_request
+
 ```
 
  ```
-docker exec -it spark 
---master spark://master:7077 \
---class es.upm.dit.ging.predictor.MakePrediction \
- --packages org.mongodb.spark:mongo-spark-connector_2.11:2.3.2,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0 \
-~/practica_big_data/flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar 
+
+sudo docker exec -it spark  ./../../spark/bin/spark-submit /practica_big_data/flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar --packages org.mongodb.spark:mongo-spark-connector_2.13:2.6.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.7 
+
  ```
 
 
