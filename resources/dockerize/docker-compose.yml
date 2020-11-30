@@ -50,6 +50,8 @@ services:
       - "5000:5000"
       - "9200:9200"
     depends_on:
+      - mongo
+      - kafka
       - mongo-executor
       - spark
     hostname: web
