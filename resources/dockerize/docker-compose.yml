@@ -45,7 +45,7 @@ services:
     
   web:
     container_name: web
-    image: alejandrorg7/web
+    image: alejandrorg7/web:1.1
     ports:
       - "5000:5000"
       - "9200:9200"
