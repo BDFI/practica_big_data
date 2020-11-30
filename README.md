@@ -254,6 +254,10 @@ sudo docker logs web
 
 #sudo docker tag 5468476c3889 sfereres/spark:1.2
 # sudo docker push sfereres/spark:1.2
+
+# sudo docker build --tag spark:1.0 .
+# sudo docker run --name spark-master -h spark-master -e ENABLE_INIT_DAEMON=false -d spark:1.0
+
 ```
 
 ```
