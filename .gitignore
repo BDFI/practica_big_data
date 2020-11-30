@@ -29,3 +29,4 @@ ghostdriver.log
 cassandra
 janusgraph
 deep
+.idea
