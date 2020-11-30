@@ -51,12 +51,25 @@ services:
       - "9200:9200"
     depends_on:
       - mongo_executor
- #     - spark
+      - spark
     hostname: web
     environment:
       MONGO_URI: mongo
       KAFKA_URI: kafka
       FLASK_URI: web
+
+  spark:
+    image: sfereres/spark:1.2
+    container_name: spark:1.2
+    ports:
+      - "7077:7077"
+    depends_on:
+      - kafka
+      - mongo_executor
+    hostname: spark
+    environment:
+      MONGO_URI: mongo
+      KAFKA_URI: kafka
 
 #  spark:
 #    image: sfereres/spark:1.2
