@@ -12,7 +12,7 @@ RUN curl -sL "https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SB
 ARG SPARK_VERSION=2.4.4
 ENV SPARK_HOME=/usr/local/spark-$SPARK_VERSION-bin-hadoop2.7
 WORKDIR /usr/local
-RUN wget "http://apache.rediris.es/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz"
+RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz
 RUN tar -zxvf spark-2.4.4-bin-hadoop2.7.tgz
 ENV SPARK_CLASSPATH ${SPARK_HOME}/jars/*
 ENV PATH $SBT_HOME/bin:$SPARK_HOME/bin:${SPARK_HOME}/jars/*:$PATH
