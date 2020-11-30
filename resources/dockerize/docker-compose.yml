@@ -37,9 +37,9 @@ services:
     environment:
       MONGODB_DATA_DIR: /data/db
 
-  mongo_executor:
-    container_name: mongo_executor:1.0
-    image: sfereres/mongo:mongo_executor
+  mongo-executor:
+    container_name: mongo-executor
+    image: sfereres/mongo-executor:1.0
     depends_on:
       - mongo
     
@@ -50,7 +50,7 @@ services:
       - "5000:5000"
       - "9200:9200"
     depends_on:
-      - mongo_executor
+      - mongo-executor
       - spark
     hostname: web
     environment:
@@ -65,7 +65,7 @@ services:
       - "7077:7077"
     depends_on:
       - kafka
-      - mongo_executor
+      - mongo-executor
     hostname: spark
     environment:
       MONGO_URI: mongo
