@@ -1,25 +1,26 @@
-FROM openjdk:8
+FROM bde2020/spark-base:2.4.4-hadoop2.7
 
-ENV TAG_VERSION 0.1
+LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>"
 
-RUN apt-get update && apt-get install curl tar wget -y &&\
+COPY master.sh /
+
+ENV SPARK_HOME /spark
+ENV SPARK_MASTER_PORT 7077
+ENV SPARK_MASTER_WEBUI_PORT 8080
+ENV SPARK_MASTER_LOG /spark/logs
+
+RUN apt-get update && apt-get install curl tar wget git -y && apt install python3-venv python3-pip -y &&\
     rm -rf /var/lib/apt/lists/*
+RUN wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz
+RUN apt-get update && apt-get upgrade && apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev
+RUN tar xvf Python-3.6.5.tgz
+WORKDIR Python-3.6.5
+RUN ./configure --enable-optimizations --with-ensurepip=install && make -j 8 && make altinstall
+RUN apt-get update && apt install python3-venv python3-pip -y &&\
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /practica_big_data_2019/flight_prediction
+COPY practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala /practica_big_data_2019/flight_prediction/src/main/scala/es/upm/dit/ging/predictor/MakePrediction.scala
 
-ARG SBT_VERSION=1.1.5
-ARG SBT_HOME=/usr/local/sbt
-RUN curl -sL "https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz" | tar -xz -C /usr/local
+EXPOSE 8080 7077 6066
 
-ARG SPARK_VERSION=2.4.4
-ENV SPARK_HOME=/usr/local/spark-$SPARK_VERSION-bin-hadoop2.7
-WORKDIR /usr/local
-RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz
-RUN tar -zxvf spark-2.4.4-bin-hadoop2.7.tgz
-ENV SPARK_CLASSPATH ${SPARK_HOME}/jars/*
-ENV PATH $SBT_HOME/bin:$SPARK_HOME/bin:${SPARK_HOME}/jars/*:$PATH
-RUN mkdir /practica
-COPY practica_big_data_2019/ /practica/
-
-
-EXPOSE 7077
-
-CMD spark-submit --packages org.mongodb.spark:mongo-spark-connector_2.11:2.3.2,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0 --class es.upm.dit.ging.predictor.MakePrediction /practica/flight_prediction/target/scala-2.11/flight_prediction_2.11-0.1.jar
+CMD ["/bin/bash", "/master.sh"]
